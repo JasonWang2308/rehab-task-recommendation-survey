@@ -1,0 +1,868 @@
+// Recommendation lookup table — placeholder content
+// Replace each entry's title / description / exercises with your own clinical content.
+const REHAB_RECOMMENDATIONS = {
+  1: {
+    title: "Example Recommendation #1",
+    description: "Sample description for combination #1. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  2: {
+    title: "Example Recommendation #2",
+    description: "Sample description for combination #2. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  3: {
+    title: "Example Recommendation #3",
+    description: "Sample description for combination #3. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  4: {
+    title: "Example Recommendation #4",
+    description: "Sample description for combination #4. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  5: {
+    title: "Example Recommendation #5",
+    description: "Sample description for combination #5. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  6: {
+    title: "Example Recommendation #6",
+    description: "Sample description for combination #6. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  7: {
+    title: "Example Recommendation #7",
+    description: "Sample description for combination #7. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  8: {
+    title: "Example Recommendation #8",
+    description: "Sample description for combination #8. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  9: {
+    title: "Example Recommendation #9",
+    description: "Sample description for combination #9. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  10: {
+    title: "Example Recommendation #10",
+    description: "Sample description for combination #10. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  11: {
+    title: "Example Recommendation #11",
+    description: "Sample description for combination #11. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  12: {
+    title: "Example Recommendation #12",
+    description: "Sample description for combination #12. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  13: {
+    title: "Example Recommendation #13",
+    description: "Sample description for combination #13. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  14: {
+    title: "Example Recommendation #14",
+    description: "Sample description for combination #14. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  15: {
+    title: "Example Recommendation #15",
+    description: "Sample description for combination #15. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  16: {
+    title: "Example Recommendation #16",
+    description: "Sample description for combination #16. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  17: {
+    title: "Example Recommendation #17",
+    description: "Sample description for combination #17. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  18: {
+    title: "Example Recommendation #18",
+    description: "Sample description for combination #18. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  19: {
+    title: "Example Recommendation #19",
+    description: "Sample description for combination #19. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  20: {
+    title: "Example Recommendation #20",
+    description: "Sample description for combination #20. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  21: {
+    title: "Example Recommendation #21",
+    description: "Sample description for combination #21. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  22: {
+    title: "Example Recommendation #22",
+    description: "Sample description for combination #22. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  23: {
+    title: "Example Recommendation #23",
+    description: "Sample description for combination #23. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  24: {
+    title: "Example Recommendation #24",
+    description: "Sample description for combination #24. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  25: {
+    title: "Example Recommendation #25",
+    description: "Sample description for combination #25. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  26: {
+    title: "Example Recommendation #26",
+    description: "Sample description for combination #26. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  27: {
+    title: "Example Recommendation #27",
+    description: "Sample description for combination #27. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  28: {
+    title: "Example Recommendation #28",
+    description: "Sample description for combination #28. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  29: {
+    title: "Example Recommendation #29",
+    description: "Sample description for combination #29. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  30: {
+    title: "Example Recommendation #30",
+    description: "Sample description for combination #30. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  31: {
+    title: "Example Recommendation #31",
+    description: "Sample description for combination #31. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  32: {
+    title: "Example Recommendation #32",
+    description: "Sample description for combination #32. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  33: {
+    title: "Example Recommendation #33",
+    description: "Sample description for combination #33. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  34: {
+    title: "Example Recommendation #34",
+    description: "Sample description for combination #34. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  35: {
+    title: "Example Recommendation #35",
+    description: "Sample description for combination #35. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  36: {
+    title: "Example Recommendation #36",
+    description: "Sample description for combination #36. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  37: {
+    title: "Example Recommendation #37",
+    description: "Sample description for combination #37. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  38: {
+    title: "Example Recommendation #38",
+    description: "Sample description for combination #38. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  39: {
+    title: "Example Recommendation #39",
+    description: "Sample description for combination #39. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  40: {
+    title: "Example Recommendation #40",
+    description: "Sample description for combination #40. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  41: {
+    title: "Example Recommendation #41",
+    description: "Sample description for combination #41. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  42: {
+    title: "Example Recommendation #42",
+    description: "Sample description for combination #42. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  43: {
+    title: "Example Recommendation #43",
+    description: "Sample description for combination #43. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  44: {
+    title: "Example Recommendation #44",
+    description: "Sample description for combination #44. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  45: {
+    title: "Example Recommendation #45",
+    description: "Sample description for combination #45. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  46: {
+    title: "Example Recommendation #46",
+    description: "Sample description for combination #46. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  47: {
+    title: "Example Recommendation #47",
+    description: "Sample description for combination #47. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  48: {
+    title: "Example Recommendation #48",
+    description: "Sample description for combination #48. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  49: {
+    title: "Example Recommendation #49",
+    description: "Sample description for combination #49. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  50: {
+    title: "Example Recommendation #50",
+    description: "Sample description for combination #50. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  51: {
+    title: "Example Recommendation #51",
+    description: "Sample description for combination #51. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  52: {
+    title: "Example Recommendation #52",
+    description: "Sample description for combination #52. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  53: {
+    title: "Example Recommendation #53",
+    description: "Sample description for combination #53. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  54: {
+    title: "Example Recommendation #54",
+    description: "Sample description for combination #54. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  55: {
+    title: "Example Recommendation #55",
+    description: "Sample description for combination #55. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  56: {
+    title: "Example Recommendation #56",
+    description: "Sample description for combination #56. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  57: {
+    title: "Example Recommendation #57",
+    description: "Sample description for combination #57. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  58: {
+    title: "Example Recommendation #58",
+    description: "Sample description for combination #58. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  59: {
+    title: "Example Recommendation #59",
+    description: "Sample description for combination #59. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  60: {
+    title: "Example Recommendation #60",
+    description: "Sample description for combination #60. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  61: {
+    title: "Example Recommendation #61",
+    description: "Sample description for combination #61. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  62: {
+    title: "Example Recommendation #62",
+    description: "Sample description for combination #62. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  63: {
+    title: "Example Recommendation #63",
+    description: "Sample description for combination #63. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  64: {
+    title: "Example Recommendation #64",
+    description: "Sample description for combination #64. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  65: {
+    title: "Example Recommendation #65",
+    description: "Sample description for combination #65. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  66: {
+    title: "Example Recommendation #66",
+    description: "Sample description for combination #66. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  67: {
+    title: "Example Recommendation #67",
+    description: "Sample description for combination #67. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  68: {
+    title: "Example Recommendation #68",
+    description: "Sample description for combination #68. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  69: {
+    title: "Example Recommendation #69",
+    description: "Sample description for combination #69. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  70: {
+    title: "Example Recommendation #70",
+    description: "Sample description for combination #70. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  71: {
+    title: "Example Recommendation #71",
+    description: "Sample description for combination #71. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  72: {
+    title: "Example Recommendation #72",
+    description: "Sample description for combination #72. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  73: {
+    title: "Example Recommendation #73",
+    description: "Sample description for combination #73. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  74: {
+    title: "Example Recommendation #74",
+    description: "Sample description for combination #74. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  75: {
+    title: "Example Recommendation #75",
+    description: "Sample description for combination #75. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  76: {
+    title: "Example Recommendation #76",
+    description: "Sample description for combination #76. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  77: {
+    title: "Example Recommendation #77",
+    description: "Sample description for combination #77. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  78: {
+    title: "Example Recommendation #78",
+    description: "Sample description for combination #78. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  79: {
+    title: "Example Recommendation #79",
+    description: "Sample description for combination #79. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  80: {
+    title: "Example Recommendation #80",
+    description: "Sample description for combination #80. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  81: {
+    title: "Example Recommendation #81",
+    description: "Sample description for combination #81. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  82: {
+    title: "Example Recommendation #82",
+    description: "Sample description for combination #82. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  83: {
+    title: "Example Recommendation #83",
+    description: "Sample description for combination #83. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  84: {
+    title: "Example Recommendation #84",
+    description: "Sample description for combination #84. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  85: {
+    title: "Example Recommendation #85",
+    description: "Sample description for combination #85. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  86: {
+    title: "Example Recommendation #86",
+    description: "Sample description for combination #86. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  87: {
+    title: "Example Recommendation #87",
+    description: "Sample description for combination #87. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  88: {
+    title: "Example Recommendation #88",
+    description: "Sample description for combination #88. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  89: {
+    title: "Example Recommendation #89",
+    description: "Sample description for combination #89. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  90: {
+    title: "Example Recommendation #90",
+    description: "Sample description for combination #90. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  91: {
+    title: "Example Recommendation #91",
+    description: "Sample description for combination #91. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  92: {
+    title: "Example Recommendation #92",
+    description: "Sample description for combination #92. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  93: {
+    title: "Example Recommendation #93",
+    description: "Sample description for combination #93. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  94: {
+    title: "Example Recommendation #94",
+    description: "Sample description for combination #94. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  95: {
+    title: "Example Recommendation #95",
+    description: "Sample description for combination #95. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  96: {
+    title: "Example Recommendation #96",
+    description: "Sample description for combination #96. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  }
+};

@@ -1,0 +1,1541 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>上肢任務推薦 — 事前問卷 + 正式問卷（跳題/早停）</title>
+  <style>
+    :root{--bg:#0b1020;--card:#121933;--muted:#93a0c3;--text:#e8eeff;--accent:#7c9cff;--accent2:#79f2d0;--warn:#ffb86b;--danger:#ff6b6b}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b1020,#0e1630 40%,#0b1020);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",sans-serif}
+    .wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+    .card{width:min(980px,96vw);background:linear-gradient(180deg,#121937,#0f1531);border:1px solid #223066;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.45);overflow:hidden}
+    .header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(124,156,255,.08),transparent)}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;background:rgba(124,156,255,.15);border:1px solid rgba(124,156,255,.35);color:var(--accent)}
+    .title{font-size:18px;font-weight:700;letter-spacing:.3px}
+    .body{padding:22px}
+    .qtext{font-size:22px;line-height:1.4;margin:4px 0 14px;font-weight:700}
+    .desc{color:var(--muted);font-size:14px;margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .btn{border:none;border-radius:14px;padding:12px 16px;font-size:16px;font-weight:700;cursor:pointer;background:#1a2452;color:#e7edff;outline:0;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #2a3a7a;transition:.15s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.25)}
+    .btn-yes{background:linear-gradient(180deg,rgba(121,242,208,.12),rgba(121,242,208,.06));border-color:rgba(121,242,208,.45)}
+    .btn-no{background:linear-gradient(180deg,rgba(255,107,107,.12),rgba(255,107,107,.06));border-color:rgba(255,107,107,.45)}
+    .footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:16px}
+    .ghost{background:transparent;border:1px dashed rgba(255,255,255,.25);color:var(--muted)}
+    .progress{height:10px;background:#0c1230;border:1px solid #25326a;border-radius:999px;overflow:hidden}
+    .bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+    .kbhint{color:var(--muted);font-size:12px}
+    .section{display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);padding:6px 10px;border-radius:999px;font-size:12px;color:#cfe2ff}
+    .pill{display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);padding:6px 10px;border-radius:999px;font-size:12px;color:#cfe2ff}
+    .pill.warn{border-color:rgba(255,184,107,.45);color:#ffd9b0}
+    .pill.danger{border-color:rgba(255,107,107,.45);color:#ffc1c1}
+    .tools{display:flex;flex-wrap:wrap;gap:8px}
+    .small{font-size:12px;color:var(--muted)}
+    pre{margin:0;background:#0e1430;border:1px solid #273276;border-radius:12px;padding:14px;max-height:40vh;overflow:auto;color:#d7e2ff}
+    .rehab-section{margin-top:20px;padding:16px;background:rgba(16,24,64,0.3);border-radius:12px;border:1px solid #2a3a7a;}
+    .rehab-title{font-size:18px;font-weight:700;margin-bottom:12px;color:var(--accent2)}
+    .rehab-content{line-height:1.6;color:#e8eeff}
+    .rehab-subsection{margin:12px 0;padding-left:12px;border-left:2px solid var(--accent)}
+    .match-info{background:rgba(121,242,208,0.1);border:1px solid rgba(121,242,208,0.3);padding:8px 12px;border-radius:8px;margin-bottom:12px;font-size:14px;}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--accent);padding:12px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:1000;opacity:0;transition:opacity .3s}
+    .toast.show{opacity:1}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+        <div class="title" style="position: absolute; left: 50%; transform: translateX(-50%);">上肢任務推薦 — 事前問卷 + 正式問卷</div>
+        </div>
+      <div class="body">
+        <!-- 事前問卷 -->
+        <div id="screen-pre">
+          <div class="qtext">事前問卷（鏡像手分數 + MAS）</div>
+          <div class="pill" style="margin:8px 0">鏡像手合適自評表（0–8 分）</div>
+          <div class="grid" style="grid-template-columns:1fr;gap:8px">
+            <div>
+              <div class="small">注意力</div>
+              <select class="btn" id="q_pre_attn">
+                <option value="">— 選擇 —</option>
+                <option value="2">2：能專心做復健</option>
+                <option value="1">1：做復健有時會分心</option>
+                <option value="0">0：無法專心做復健</option>
+              </select>
+            </div>
+            <div>
+              <div class="small">軀幹功能</div>
+              <select class="btn" id="q_pre_trunk">
+                <option value="">— 選擇 —</option>
+                <option value="2">2：能自行坐起</option>
+                <option value="1">1：能在幫忙下坐起</option>
+                <option value="0">0：完全臥床</option>
+              </select>
+            </div>
+            <div>
+              <div class="small">患肢上肢近端功能（肩/肘）</div>
+              <select class="btn" id="q_pre_prox">
+                <option value="">— 選擇 —</option>
+                <option value="2">2：能抬高</option>
+                <option value="1">1：能動作但不能抬高</option>
+                <option value="0">0：完全不能動作</option>
+              </select>
+            </div>
+            <div>
+              <div class="small">患肢上肢遠端功能（手部）</div>
+              <select class="btn" id="q_pre_distal">
+                <option value="">— 選擇 —</option>
+                <option value="2">2：不能動作</option>
+                <option value="1">1：有動作但無法抓物</option>
+                <option value="0">0：接近正常功能</option>
+              </select>
+            </div>
+          </div>
+          <div class="pill" style="margin:12px 0">上肢遠端肌肉張力（MAS）</div>
+          <div>
+            <select class="btn" id="q_pre_mas">
+              <option value="">— 選擇 —</option>
+              <option value="0">0：整個關節活動範圍均無阻力（No increase in tone）</option>
+              <option value="1">1：活動到終末端時有輕微阻力／catch&release（Slight ↑ tone at end ROM）</option>
+              <option value="1p">1+：開始移動即有 catch，且在少於一半 ROM 仍有最小阻力（Minimal resistance < 1/2 ROM）</option>
+              <option value="2">2：大多數活動範圍都有明顯張力增加，但仍可移動（Marked ↑ tone through most of ROM）</option>
+              <option value="3">3：整個關節活動範圍都有阻力，被動動作困難（Considerable ↑ tone, passive movement difficult）</option>
+              <option value="4">4：關節屈曲或伸直僵硬（Rigid in flexion or extension）</option>
+            </select>
+            
+          </div>
+          <div style="display: flex; justify-content: center; margin-top:12px">
+            <button class="btn btn-yes" id="btn-pre-commit">✅ 套用事前結果並開始正式問卷</button>
+          </div>
+        </div>
+
+        <!-- 正式問卷：題目畫面 -->
+        <div id="screen-question" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">
+            <span class="section" id="secName">—</span>
+            <span class="small" id="q-index"></span>
+          </div>
+          <div class="qtext" id="q-text">題目文字</div>
+          <div class="desc">請依實際情況點選「是/否」。支援鍵盤 Y / N。</div>
+          <div class="grid">
+            <button class="btn btn-yes" id="btn-yes">✅ 是（True）</button>
+            <button class="btn btn-no" id="btn-no">⛔ 否（False）</button>
+          </div>
+          <div class="footer">
+            <button class="btn ghost" id="btn-back">← 上一題</button>
+            <div style="flex:1; margin:0 12px">
+              <div class="progress"><div class="bar" id="bar"></div></div>
+            </div>
+            <span class="kbhint">鍵盤：Y / N，返回：Backspace</span>
+          </div>
+        </div>
+
+        <!-- 結果畫面 -->
+        <div id="screen-result" style="display:none">
+          <div class="qtext">評估結果與復健建議</div>
+          <div class="tools" id="resultFlags"></div>
+          <div class="desc" id="resultReason">—</div>
+          
+          <!-- 復健建議區域 -->
+          <div class="rehab-section">
+            <div class="rehab-title">📋 復健訓練建議</div>
+            <div id="match-info" class="match-info"></div>
+            <div class="rehab-content" id="rehab-content">
+              <!-- 復健內容將在這裡動態生成 -->
+            </div>
+          </div>
+
+          <label class="small">輸出 JSON</label>
+          <pre id="jsonOut"></pre>
+          <div style="display: flex; justify-content: center; margin-top:10px">
+            <button class="btn" id="btn-json">⬇️ 下載 JSON</button>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top:14px">
+            <button class="btn ghost" id="btn-restart">↻ 重新開始</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+// ===== 讓 MAS 選單即時顯示說明 =====
+(function(){
+  var map={
+    '0':'0：整個關節活動範圍均無阻力（No increase in muscle tone）',
+    '1':'1：終末端輕微阻力／catch & release（Slight ↑ at end ROM）',
+    '1p':'1+：開始即有 catch，且 <1/2 ROM 有最小阻力（Minimal resistance < half ROM）',
+    '2':'2：大多數 ROM 有明顯張力增加，但仍可移動（More marked ↑ through most of ROM）',
+    '3':'3：整個 ROM 有阻力，被動動作困難（Considerable ↑ tone）',
+    '4':'4：屈曲或伸直僵硬（Rigid）'
+  };
+  var sel=document.getElementById('q_pre_mas');
+  var desc=document.getElementById('mas-desc');
+  if(sel&&desc){ sel.addEventListener('change',function(){ var v=sel.value; desc.textContent = v? map[v] : '選擇一個分數，系統會於後台將 1+ 視為 1.5 參與計算。'; }); }
+})();
+
+// ===== 問卷定義：6 大項目 =====
+const SECTIONS = [
+  { key:'basic', name:'是不是適合使用鏡像手的基本評估', items:[
+      {id:'A', text:'是否可以遵循三步驟指令？'},
+      {id:'B', text:'鏡像手合適自評表分數是否 ≥ 5 分？'},
+      {id:'C', text:'上肢遠端肌肉張力（MAS）是否 < 3 分？'},
+    ]
+  },
+  { key:'contra', name:'健側邊動作評估', items:[
+      {id:'D', text:'健側手是否「正常動作」？'},
+      {id:'E', text:'健側邊是否「沒有動作」？'},
+      {id:'F', text:'健側手臂可以抬手但手指不能開合？'},
+      {id:'G', text:'健側手臂不能抬手但手指可以開合？'},
+    ]
+  },
+  { key:'tactile', name:'觸覺評估（請個案閉眼再測）', items:[
+      {id:'H', text:'手指指腹沒感覺？'},
+      {id:'I', text:'可正確回答被按壓的手指（雙指組合測試）？'},
+      {id:'J', text:'感覺到東西劃過去？'},
+      {id:'K', text:'感覺到按壓？'},
+      {id:'L', text:'手指指腹感覺麻麻的？'},
+    ]
+  },
+  { key:'prox', name:'上肢近端功能評估', items:[
+      {id:'M', text:'患側手軟癱沒有動作？'},
+      {id:'N', text:'患側手可碰到後腦勺？'},
+      {id:'O', text:'患側手可碰到鼻子？'},
+      {id:'P', text:'患側手可碰到胸口？'},
+      {id:'Q', text:'患側手可以放到桌面？'},
+    ]
+  },
+  { key:'forearm', name:'上肢前臂功能評估（平舉或在輔助下平舉後測試）', items:[
+      {id:'R', text:'手臂可做肩關節內外展？'},
+      {id:'S', text:'患側手肘可以屈伸？'},
+      {id:'T', text:'患側手腕可以屈伸？'},
+      {id:'U', text:'患側前臂可以內外旋？'},
+    ]
+  },
+  { key:'distal', name:'上肢遠端功能評估', items:[
+      {id:'V', text:'五隻手指沒有動作？'},
+      {id:'W', text:'手指 MAS ≥ 2？'},
+      {id:'X', text:'手指可分指，但複雜動作控制不好？'},
+      {id:'Y', text:'手指可開合，但分指不好？'},
+      {id:'Z', text:'手指可握但無法主動張開？'},
+      {id:'AA',text:'任一手指能微微動？'},
+    ]
+  },
+];
+
+// 攤平成一維清單與分區索引
+const ORDER=[]; const SECTION_IDX={};
+(function(){ let c=0; for(const sec of SECTIONS){ SECTION_IDX[sec.key]={start:c,end:null}; for(const it of sec.items){ ORDER.push(Object.assign({},it,{section:sec.key, sectionName:sec.name})); c++; } SECTION_IDX[sec.key].end=c-1; } })();
+
+// 規則：全域 gating（A/B/C 任一否即結束）
+const GATING_IDS=['A','B','C'];
+const GATING_FAIL_MESSAGE='不適用：基本評估未通過（A/B/C 任一為「否」）。';
+
+// 跳過規則定義
+const SKIP_RULES = {
+  // 健側邊動作評估
+  'D': { ifTrue: ['E','F','G'] }, // D=true 跳過 E,F,G
+  'E': { ifTrue: ['F','G'] },     // E=true 跳過 F,G
+  'F': { ifTrue: ['G'] },         // F=true 跳過 G
+  
+  // 觸覺評估
+  'H': { ifTrue: ['I','J','K','L'] }, // H=true 跳過 I,J,K,L
+  'J': { ifTrue: ['K','L'] },          // J=true 跳過 K,L
+  'K': { ifTrue: ['L'] },              // K=true 跳過 L
+  
+  // 上肢近端功能評估
+  'M': { ifTrue: ['N','O','P','Q'] }, // M=true 跳過 N,O,P,Q
+  'N': { ifTrue: ['O','P','Q'] },     // N=true 跳過 O,P,Q
+  'O': { ifTrue: ['P','Q'] },         // O=true 跳過 P,Q
+  'P': { ifTrue: ['Q'] },             // P=true 跳過 Q
+  
+  // 上肢遠端功能評估
+  'V': { ifTrue: ['W','X','Y','Z','AA'] }, // V=true 跳過 W,X,Y,Z,AA
+  'W': { ifTrue: ['X','Y','Z','AA'] },     // W=true 跳過 X,Y,Z,AA
+  'X': { ifTrue: ['Y','Z','AA'] },         // X=true 跳過 Y,Z,AA
+  'Y': { ifTrue: ['Z','AA'] },             // Y=true 跳過 Z,AA
+  'Z': { ifTrue: ['AA'] },                 // Z=true 跳過 AA
+};
+
+// ===== 四欄規則定義 =====
+
+// 第一欄：上肢遠端規則 (4種)
+const DISTAL_RULES = {
+  'V_AA': (ans) => (hasAnswer(ans, 'V') && ans.V) || hasAnswer(ans, 'AA'), 
+  'W': (ans) => hasAnswer(ans, 'W') && ans.W,
+  'X_Y': (ans) => (hasAnswer(ans, 'X') && ans.X) || (hasAnswer(ans, 'Y') && ans.Y),
+  'Z': (ans) => hasAnswer(ans, 'Z') && ans.Z
+};
+
+// 第二欄：上肢近端規則 (3種)
+const PROXIMAL_RULES = {
+  'M': (ans) => hasAnswer(ans, 'M') && ans.M,
+  'N_O_P': (ans) => (hasAnswer(ans, 'N') && ans.N) || (hasAnswer(ans, 'O') && ans.O) || (hasAnswer(ans, 'P') && ans.P),
+  'Q': (ans) => hasAnswer(ans, 'Q')
+};
+
+// 第三欄：健側邊規則 (2種)
+const CONTRA_RULES = {
+  'D_G': (ans) => (hasAnswer(ans, 'D') && ans.D) || (hasAnswer(ans, 'G') && ans.G),
+  'E_F_G': (ans) => (hasAnswer(ans, 'E') && ans.E) || (hasAnswer(ans, 'F') && ans.F) || (hasAnswer(ans, 'G') && !ans.G)
+};
+
+// 第四欄：觸覺規則 (4種)
+const TACTILE_RULES = {
+  'JI': (ans) => hasAnswer(ans, 'J') && ans.J && hasAnswer(ans, 'I') && ans.I,
+  'H_L_K': (ans) => 
+    (hasAnswer(ans, 'H') && ans.H) || 
+    (hasAnswer(ans, 'L') && ans.L && hasAnswer(ans, 'I') && ans.I) || 
+    (hasAnswer(ans, 'K') && ans.K && hasAnswer(ans, 'I') && ans.I) || 
+    (hasAnswer(ans, 'L') && !ans.L && hasAnswer(ans, 'I') && !ans.I),
+  'J+': (ans) => hasAnswer(ans, 'J') && ans.J && hasAnswer(ans, 'I') && !ans.I,
+  'K+_L+': (ans) => 
+    (hasAnswer(ans, 'K') && ans.K && hasAnswer(ans, 'I') && !ans.I) || 
+    (hasAnswer(ans, 'L') && ans.L && hasAnswer(ans, 'I') && !ans.I)
+};
+
+// ===== 96種組合的數值對照表 =====
+const COMBINATION_MAP = {
+  // V_AA 系列 (1-24)
+  'V_AA_M_D_G_JI': 1,
+  'V_AA_M_D_G_H_L_K': 2,
+  'V_AA_M_D_G_J+': 3,
+  'V_AA_M_D_G_K+_L+': 4,
+  'V_AA_M_E_F_G_JI': 5,
+  'V_AA_M_E_F_G_H_L_K': 6,
+  'V_AA_M_E_F_G_J+': 7,
+  'V_AA_M_E_F_G_K+_L+': 8,
+  'V_AA_N_O_P_D_G_JI': 9,
+  'V_AA_N_O_P_D_G_H_L_K': 10,
+  'V_AA_N_O_P_D_G_J+': 11,
+  'V_AA_N_O_P_D_G_K+_L+': 12,
+  'V_AA_N_O_P_E_F_G_JI': 13,
+  'V_AA_N_O_P_E_F_G_H_L_K': 14,
+  'V_AA_N_O_P_E_F_G_J+': 15,
+  'V_AA_N_O_P_E_F_G_K+_L+': 16,
+  'V_AA_Q_D_G_JI': 17,
+  'V_AA_Q_D_G_H_L_K': 18,
+  'V_AA_Q_D_G_J+': 19,
+  'V_AA_Q_D_G_K+_L+': 20,
+  'V_AA_Q_E_F_G_JI': 21,
+  'V_AA_Q_E_F_G_H_L_K': 22,
+  'V_AA_Q_E_F_G_J+': 23,
+  'V_AA_Q_E_F_G_K+_L+': 24,
+  
+  // W 系列 (25-48)
+  'W_M_D_G_JI': 25,
+  'W_M_D_G_H_L_K': 26,
+  'W_M_D_G_J+': 27,
+  'W_M_D_G_K+_L+': 28,
+  'W_M_E_F_G_JI': 29,
+  'W_M_E_F_G_H_L_K': 30,
+  'W_M_E_F_G_J+': 31,
+  'W_M_E_F_G_K+_L+': 32,
+  'W_N_O_P_D_G_JI': 33,
+  'W_N_O_P_D_G_H_L_K': 34,
+  'W_N_O_P_D_G_J+': 35,
+  'W_N_O_P_D_G_K+_L+': 36,
+  'W_N_O_P_E_F_G_JI': 37,
+  'W_N_O_P_E_F_G_H_L_K': 38,
+  'W_N_O_P_E_F_G_J+': 39,
+  'W_N_O_P_E_F_G_K+_L+': 40,
+  'W_Q_D_G_JI': 41,
+  'W_Q_D_G_H_L_K': 42,
+  'W_Q_D_G_J+': 43,
+  'W_Q_D_G_K+_L+': 44,
+  'W_Q_E_F_G_JI': 45,
+  'W_Q_E_F_G_H_L_K': 46,
+  'W_Q_E_F_G_J+': 47,
+  'W_Q_E_F_G_K+_L+': 48,
+  
+  // X_Y 系列 (49-72)
+  'X_Y_M_D_G_JI': 49,
+  'X_Y_M_D_G_H_L_K': 50,
+  'X_Y_M_D_G_J+': 51,
+  'X_Y_M_D_G_K+_L+': 52,
+  'X_Y_M_E_F_G_JI': 53,
+  'X_Y_M_E_F_G_H_L_K': 54,
+  'X_Y_M_E_F_G_J+': 55,
+  'X_Y_M_E_F_G_K+_L+': 56,
+  'X_Y_N_O_P_D_G_JI': 57,
+  'X_Y_N_O_P_D_G_H_L_K': 58,
+  'X_Y_N_O_P_D_G_J+': 59,
+  'X_Y_N_O_P_D_G_K+_L+': 60,
+  'X_Y_N_O_P_E_F_G_JI': 61,
+  'X_Y_N_O_P_E_F_G_H_L_K': 62,
+  'X_Y_N_O_P_E_F_G_J+': 63,
+  'X_Y_N_O_P_E_F_G_K+_L+': 64,
+  'X_Y_Q_D_G_JI': 65,
+  'X_Y_Q_D_G_H_L_K': 66,
+  'X_Y_Q_D_G_J+': 67,
+  'X_Y_Q_D_G_K+_L+': 68,
+  'X_Y_Q_E_F_G_JI': 69,
+  'X_Y_Q_E_F_G_H_L_K': 70,
+  'X_Y_Q_E_F_G_J+': 71,
+  'X_Y_Q_E_F_G_K+_L+': 72,
+  
+  // Z 系列 (73-96)
+  'Z_M_D_G_JI': 73,
+  'Z_M_D_G_H_L_K': 74,
+  'Z_M_D_G_J+': 75,
+  'Z_M_D_G_K+_L+': 76,
+  'Z_M_E_F_G_JI': 77,
+  'Z_M_E_F_G_H_L_K': 78,
+  'Z_M_E_F_G_J+': 79,
+  'Z_M_E_F_G_K+_L+': 80,
+  'Z_N_O_P_D_G_JI': 81,
+  'Z_N_O_P_D_G_H_L_K': 82,
+  'Z_N_O_P_D_G_J+': 83,
+  'Z_N_O_P_D_G_K+_L+': 84,
+  'Z_N_O_P_E_F_G_JI': 85,
+  'Z_N_O_P_E_F_G_H_L_K': 86,
+  'Z_N_O_P_E_F_G_J+': 87,
+  'Z_N_O_P_E_F_G_K+_L+': 88,
+  'Z_Q_D_G_JI': 89,
+  'Z_Q_D_G_H_L_K': 90,
+  'Z_Q_D_G_J+': 91,
+  'Z_Q_D_G_K+_L+': 92,
+  'Z_Q_E_F_G_JI': 93,
+  'Z_Q_E_F_G_H_L_K': 94,
+  'Z_Q_E_F_G_J+': 95,
+  'Z_Q_E_F_G_K+_L+': 96
+};
+
+// ===== 完整的康复建议内容 =====
+const REHAB_RECOMMENDATIONS = {
+  1: {
+    title: "Example Recommendation #1",
+    description: "Sample description for combination #1. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  2: {
+    title: "Example Recommendation #2",
+    description: "Sample description for combination #2. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  3: {
+    title: "Example Recommendation #3",
+    description: "Sample description for combination #3. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  4: {
+    title: "Example Recommendation #4",
+    description: "Sample description for combination #4. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  5: {
+    title: "Example Recommendation #5",
+    description: "Sample description for combination #5. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  6: {
+    title: "Example Recommendation #6",
+    description: "Sample description for combination #6. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  7: {
+    title: "Example Recommendation #7",
+    description: "Sample description for combination #7. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  8: {
+    title: "Example Recommendation #8",
+    description: "Sample description for combination #8. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  9: {
+    title: "Example Recommendation #9",
+    description: "Sample description for combination #9. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  10: {
+    title: "Example Recommendation #10",
+    description: "Sample description for combination #10. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  11: {
+    title: "Example Recommendation #11",
+    description: "Sample description for combination #11. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  12: {
+    title: "Example Recommendation #12",
+    description: "Sample description for combination #12. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  13: {
+    title: "Example Recommendation #13",
+    description: "Sample description for combination #13. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  14: {
+    title: "Example Recommendation #14",
+    description: "Sample description for combination #14. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  15: {
+    title: "Example Recommendation #15",
+    description: "Sample description for combination #15. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  16: {
+    title: "Example Recommendation #16",
+    description: "Sample description for combination #16. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  17: {
+    title: "Example Recommendation #17",
+    description: "Sample description for combination #17. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  18: {
+    title: "Example Recommendation #18",
+    description: "Sample description for combination #18. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  19: {
+    title: "Example Recommendation #19",
+    description: "Sample description for combination #19. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  20: {
+    title: "Example Recommendation #20",
+    description: "Sample description for combination #20. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  21: {
+    title: "Example Recommendation #21",
+    description: "Sample description for combination #21. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  22: {
+    title: "Example Recommendation #22",
+    description: "Sample description for combination #22. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  23: {
+    title: "Example Recommendation #23",
+    description: "Sample description for combination #23. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  24: {
+    title: "Example Recommendation #24",
+    description: "Sample description for combination #24. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  25: {
+    title: "Example Recommendation #25",
+    description: "Sample description for combination #25. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  26: {
+    title: "Example Recommendation #26",
+    description: "Sample description for combination #26. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  27: {
+    title: "Example Recommendation #27",
+    description: "Sample description for combination #27. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  28: {
+    title: "Example Recommendation #28",
+    description: "Sample description for combination #28. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  29: {
+    title: "Example Recommendation #29",
+    description: "Sample description for combination #29. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  30: {
+    title: "Example Recommendation #30",
+    description: "Sample description for combination #30. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  31: {
+    title: "Example Recommendation #31",
+    description: "Sample description for combination #31. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  32: {
+    title: "Example Recommendation #32",
+    description: "Sample description for combination #32. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  33: {
+    title: "Example Recommendation #33",
+    description: "Sample description for combination #33. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  34: {
+    title: "Example Recommendation #34",
+    description: "Sample description for combination #34. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  35: {
+    title: "Example Recommendation #35",
+    description: "Sample description for combination #35. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  36: {
+    title: "Example Recommendation #36",
+    description: "Sample description for combination #36. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  37: {
+    title: "Example Recommendation #37",
+    description: "Sample description for combination #37. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  38: {
+    title: "Example Recommendation #38",
+    description: "Sample description for combination #38. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  39: {
+    title: "Example Recommendation #39",
+    description: "Sample description for combination #39. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  40: {
+    title: "Example Recommendation #40",
+    description: "Sample description for combination #40. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  41: {
+    title: "Example Recommendation #41",
+    description: "Sample description for combination #41. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  42: {
+    title: "Example Recommendation #42",
+    description: "Sample description for combination #42. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  43: {
+    title: "Example Recommendation #43",
+    description: "Sample description for combination #43. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  44: {
+    title: "Example Recommendation #44",
+    description: "Sample description for combination #44. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  45: {
+    title: "Example Recommendation #45",
+    description: "Sample description for combination #45. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  46: {
+    title: "Example Recommendation #46",
+    description: "Sample description for combination #46. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  47: {
+    title: "Example Recommendation #47",
+    description: "Sample description for combination #47. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  48: {
+    title: "Example Recommendation #48",
+    description: "Sample description for combination #48. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  49: {
+    title: "Example Recommendation #49",
+    description: "Sample description for combination #49. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  50: {
+    title: "Example Recommendation #50",
+    description: "Sample description for combination #50. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  51: {
+    title: "Example Recommendation #51",
+    description: "Sample description for combination #51. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  52: {
+    title: "Example Recommendation #52",
+    description: "Sample description for combination #52. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  53: {
+    title: "Example Recommendation #53",
+    description: "Sample description for combination #53. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  54: {
+    title: "Example Recommendation #54",
+    description: "Sample description for combination #54. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  55: {
+    title: "Example Recommendation #55",
+    description: "Sample description for combination #55. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  56: {
+    title: "Example Recommendation #56",
+    description: "Sample description for combination #56. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  57: {
+    title: "Example Recommendation #57",
+    description: "Sample description for combination #57. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  58: {
+    title: "Example Recommendation #58",
+    description: "Sample description for combination #58. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  59: {
+    title: "Example Recommendation #59",
+    description: "Sample description for combination #59. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  60: {
+    title: "Example Recommendation #60",
+    description: "Sample description for combination #60. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  61: {
+    title: "Example Recommendation #61",
+    description: "Sample description for combination #61. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  62: {
+    title: "Example Recommendation #62",
+    description: "Sample description for combination #62. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  63: {
+    title: "Example Recommendation #63",
+    description: "Sample description for combination #63. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  64: {
+    title: "Example Recommendation #64",
+    description: "Sample description for combination #64. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  65: {
+    title: "Example Recommendation #65",
+    description: "Sample description for combination #65. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  66: {
+    title: "Example Recommendation #66",
+    description: "Sample description for combination #66. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  67: {
+    title: "Example Recommendation #67",
+    description: "Sample description for combination #67. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  68: {
+    title: "Example Recommendation #68",
+    description: "Sample description for combination #68. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  69: {
+    title: "Example Recommendation #69",
+    description: "Sample description for combination #69. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  70: {
+    title: "Example Recommendation #70",
+    description: "Sample description for combination #70. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  71: {
+    title: "Example Recommendation #71",
+    description: "Sample description for combination #71. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  72: {
+    title: "Example Recommendation #72",
+    description: "Sample description for combination #72. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  73: {
+    title: "Example Recommendation #73",
+    description: "Sample description for combination #73. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  74: {
+    title: "Example Recommendation #74",
+    description: "Sample description for combination #74. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  75: {
+    title: "Example Recommendation #75",
+    description: "Sample description for combination #75. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  76: {
+    title: "Example Recommendation #76",
+    description: "Sample description for combination #76. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  77: {
+    title: "Example Recommendation #77",
+    description: "Sample description for combination #77. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  78: {
+    title: "Example Recommendation #78",
+    description: "Sample description for combination #78. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  79: {
+    title: "Example Recommendation #79",
+    description: "Sample description for combination #79. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  80: {
+    title: "Example Recommendation #80",
+    description: "Sample description for combination #80. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  81: {
+    title: "Example Recommendation #81",
+    description: "Sample description for combination #81. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  82: {
+    title: "Example Recommendation #82",
+    description: "Sample description for combination #82. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  83: {
+    title: "Example Recommendation #83",
+    description: "Sample description for combination #83. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  84: {
+    title: "Example Recommendation #84",
+    description: "Sample description for combination #84. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  85: {
+    title: "Example Recommendation #85",
+    description: "Sample description for combination #85. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  86: {
+    title: "Example Recommendation #86",
+    description: "Sample description for combination #86. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  87: {
+    title: "Example Recommendation #87",
+    description: "Sample description for combination #87. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  88: {
+    title: "Example Recommendation #88",
+    description: "Sample description for combination #88. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  89: {
+    title: "Example Recommendation #89",
+    description: "Sample description for combination #89. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  90: {
+    title: "Example Recommendation #90",
+    description: "Sample description for combination #90. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  91: {
+    title: "Example Recommendation #91",
+    description: "Sample description for combination #91. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  92: {
+    title: "Example Recommendation #92",
+    description: "Sample description for combination #92. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  93: {
+    title: "Example Recommendation #93",
+    description: "Sample description for combination #93. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  94: {
+    title: "Example Recommendation #94",
+    description: "Sample description for combination #94. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  95: {
+    title: "Example Recommendation #95",
+    description: "Sample description for combination #95. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  },
+  96: {
+    title: "Example Recommendation #96",
+    description: "Sample description for combination #96. Replace with your own clinical content.",
+    exercises: [
+      "Example exercise A — replace with actual recommendation text",
+      "Example exercise B — replace with actual recommendation text",
+      "Example exercise C — replace with actual recommendation text"
+    ]
+  }
+};
+
+// 狀態與 UI 綁定
+let idx=0; const answers={}; let SKIP_IDS=new Set();
+const screenPre=document.getElementById('screen-pre');
+const screenQuestion=document.getElementById('screen-question');
+const screenResult=document.getElementById('screen-result');
+const secNameEl=document.getElementById('secName');
+const qIndexEl=document.getElementById('q-index');
+const qTextEl=document.getElementById('q-text');
+const barEl=document.getElementById('bar');
+const resultFlags=document.getElementById('resultFlags');
+const resultReason=document.getElementById('resultReason');
+const jsonOut=document.getElementById('jsonOut');
+const rehabContent=document.getElementById('rehab-content');
+const matchInfo=document.getElementById('match-info');
+const btnYes=document.getElementById('btn-yes');
+const btnNo=document.getElementById('btn-no');
+const btnBack=document.getElementById('btn-back');
+const btnJSON=document.getElementById('btn-json');
+const btnRestart=document.getElementById('btn-restart');
+const toastEl = document.getElementById('toast');
+
+// 事件
+btnYes.onclick=function(){answerCurrent(true)};
+btnNo.onclick=function(){answerCurrent(false)};
+btnBack.onclick=function(){goBack()};
+btnJSON.onclick=function(){downloadJSON()};
+btnRestart.onclick=function(){location.reload()};
+document.getElementById('btn-pre-commit').onclick=function(){applyPreAndStart()};
+window.addEventListener('keydown',function(e){ if(screenQuestion.style.display!=="none"){ if(e.key==='y'||e.key==='Y') answerCurrent(true); if(e.key==='n'||e.key==='N') answerCurrent(false); if(e.key==='Backspace') goBack(); } });
+
+// 工具函数
+function hasAnswer(answers, id) {
+  return answers[id] !== undefined;
+}
+
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => { toastEl.classList.remove('show'); }, 3000);
+}
+
+function start(){ screenPre.style.display='none'; screenQuestion.style.display='block'; screenResult.style.display='none'; idx=0; render(); }
+
+function applyPreAndStart(){
+  function valNum(id){ var v=document.getElementById(id).value; if(v==='') return null; if(v==='1p') return 1.5; return Number(v); }
+  var attn=valNum('q_pre_attn'); var trunk=valNum('q_pre_trunk'); var prox=valNum('q_pre_prox'); var distal=valNum('q_pre_distal'); var mas=valNum('q_pre_mas');
+  if(attn==null||trunk==null||prox==null||distal==null||mas==null){ toast('請先完成所有事前選項'); return; }
+  var mirrorScore=attn+trunk+prox+distal; // 0–8
+  answers['B'] = mirrorScore>=5; // ≥5 通過
+  answers['C'] = mas<3;          // <3 通過（1+ 視為 1.5）
+  answers['W'] = mas>=2;         // 由 MAS 推導：W=是否手指 MAS ≥ 2？
+  SKIP_IDS = new Set(['B','C','W']); // 保留B、C、W填入結果，但不跳過其他題目
+  start();
+}
+
+function current(){ return ORDER[idx]; }
+
+function render(){
+  // 跳過已跳過的題目
+  while(idx<ORDER.length && SKIP_IDS.has(current().id)){
+    idx++;
+  }
+  if(idx>=ORDER.length){ finish('問卷完成（事前問卷已自動填入部份答案）'); return; }
+  const q=current();
+  secNameEl.textContent=q.sectionName; qIndexEl.textContent='題目 '+(idx+1)+' / '+ORDER.length+' — #'+q.id; qTextEl.textContent=q.text; barEl.style.width=Math.round(idx/ORDER.length*100)+'%'; btnBack.disabled=(idx===0);
+}
+
+function answerCurrent(val){
+  const q=current();
+  answers[q.id]=!!val;
+  
+  // 全域閘門檢查
+  if(GATING_IDS.indexOf(q.id)>=0 && val===false){ return finish(GATING_FAIL_MESSAGE,true); }
+  if(GATING_IDS.every(function(id){return id in answers;})){
+    var pass=GATING_IDS.every(function(id){return answers[id]===true}); if(!pass) return finish(GATING_FAIL_MESSAGE,true);
+  }
+  
+  // 應用跳過規則
+  applySkipRules(q.id, val);
+  
+  // 繼續下一題
+  if(idx<ORDER.length-1){ idx++; render(); } else { finish('問卷完成'); }
+}
+
+function applySkipRules(currentId, currentValue) {
+  const rule = SKIP_RULES[currentId];
+  if (!rule) return;
+  
+  if (rule.ifTrue && currentValue === true) {
+    // 如果回答"是"，跳過指定的子題
+    rule.ifTrue.forEach(id => SKIP_IDS.add(id));
+  }
+  
+  if (rule.ifFalse && currentValue === false) {
+    // 如果回答"否"，跳過指定的子題
+    rule.ifFalse.forEach(id => SKIP_IDS.add(id));
+  }
+}
+
+function goBack(){ 
+  if(idx===0) return; 
+  
+  // 清除當前題目的跳過規則
+  const currentQ = current();
+  const rule = SKIP_RULES[currentQ.id];
+  if (rule) {
+    if (rule.ifTrue) rule.ifTrue.forEach(id => SKIP_IDS.delete(id));
+    if (rule.ifFalse) rule.ifFalse.forEach(id => SKIP_IDS.delete(id));
+  }
+  
+  idx--; 
+  render(); 
+}
+
+// ===== 復健建議邏輯 =====
+function generateRehabRecommendation() {
+  let matchedNumber = 0;
+  let matchedCombination = null;
+  
+  // 檢查所有可能的組合
+  for (const distalKey in DISTAL_RULES) {
+    if (!DISTAL_RULES[distalKey](answers)) continue;
+    
+    for (const proximalKey in PROXIMAL_RULES) {
+      if (!PROXIMAL_RULES[proximalKey](answers)) continue;
+      
+      for (const contraKey in CONTRA_RULES) {
+        if (!CONTRA_RULES[contraKey](answers)) continue;
+        
+        for (const tactileKey in TACTILE_RULES) {
+          if (!TACTILE_RULES[tactileKey](answers)) continue;
+          
+          // 構建組合鍵
+          const combinationKey = `${distalKey}_${proximalKey}_${contraKey}_${tactileKey}`;
+          
+          if (COMBINATION_MAP[combinationKey] !== undefined) {
+            matchedNumber = COMBINATION_MAP[combinationKey];
+            matchedCombination = combinationKey;
+            break;
+          }
+        }
+        if (matchedNumber > 0) break;
+      }
+      if (matchedNumber > 0) break;
+    }
+    if (matchedNumber > 0) break;
+  }
+  
+  return { number: matchedNumber, combination: matchedCombination };
+}
+
+function finish(reason, isEarlyStop=false){
+  screenQuestion.style.display='none';
+  screenResult.style.display='block';
+  
+  // 生成結果標誌
+  resultFlags.innerHTML='';
+  if(isEarlyStop){
+    const pill=document.createElement('span'); pill.className='pill danger'; pill.innerHTML='⏹️ 提早結束'; resultFlags.appendChild(pill);
+  } else {
+    const pill=document.createElement('span'); pill.className='pill warn'; pill.innerHTML='✅ 正常完成'; resultFlags.appendChild(pill);
+  }
+  
+  // 顯示原因
+  resultReason.textContent=reason;
+  
+  // 生成康復建議
+  const recommendation = generateRehabRecommendation();
+  if (recommendation.number > 0) {
+    matchInfo.innerHTML = `匹配組合編號: <b>${recommendation.number}</b> | 組合鍵: <b>${recommendation.combination}</b>`;
+    
+    const rehab = REHAB_RECOMMENDATIONS[recommendation.number] || {
+      title: "通用镜像治疗训练",
+      description: "针对一般上肢功能障碍患者",
+      exercises: [
+        "基础镜像治疗训练",
+        "双侧协调性练习",
+        "渐进式功能训练"
+      ]
+    };
+    
+    rehabContent.innerHTML = `
+      <div class="rehab-subsection">
+        <strong>${rehab.title}</strong>
+        <div class="small">${rehab.description}</div>
+      </div>
+      <div class="rehab-subsection">
+        <strong>推薦訓練項目：</strong>
+        <ul>
+          ${rehab.exercises.map(ex => `<li>${ex}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  } else {
+    matchInfo.innerHTML = `未找到匹配的組合`;
+    rehabContent.innerHTML = `<p>無法根據當前答案提供具體的康復建議。請確認所有問題已回答完整。</p>`;
+  }
+  
+  // 生成 JSON 輸出
+  const sortedAnswers = {};
+  ORDER.forEach(q => {
+    if (q.id in answers) {
+      sortedAnswers[q.id] = answers[q.id];
+    }
+  });
+  
+  const output = {
+    preQuestionnaire: {
+      mirrorScore: {
+        attention: document.getElementById('q_pre_attn').value,
+        trunk: document.getElementById('q_pre_trunk').value,
+        proximal: document.getElementById('q_pre_prox').value,
+        distal: document.getElementById('q_pre_distal').value,
+        total: (parseFloat(document.getElementById('q_pre_attn').value) || 0) + 
+               (parseFloat(document.getElementById('q_pre_trunk').value) || 0) + 
+               (parseFloat(document.getElementById('q_pre_prox').value) || 0) + 
+               (parseFloat(document.getElementById('q_pre_distal').value) || 0)
+      },
+      MAS: document.getElementById('q_pre_mas').value
+    },
+    answers: sortedAnswers,
+    recommendation: recommendation.number > 0 ? {
+      number: recommendation.number,
+      combination: recommendation.combination,
+      rehab: REHAB_RECOMMENDATIONS[recommendation.number] || null
+    } : null
+  };
+  
+  jsonOut.textContent = JSON.stringify(output, null, 2);
+}
+
+function downloadJSON() {
+  const data = jsonOut.textContent;
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '上肢任務推薦評估結果.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadCSV() {
+  const data = [];
+  
+  // 添加標題行
+  data.push(['問題ID', '答案']);
+  
+  // 添加答案行
+  ORDER.forEach(q => {
+    if (q.id in answers) {
+      data.push([q.id, answers[q.id] ? '是' : '否']);
+    }
+  });
+  
+  // 轉換為 CSV 格式
+  const csvContent = data.map(row => row.join(',')).join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '上肢任務推薦評估結果.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
